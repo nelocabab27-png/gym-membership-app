@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Suite // Gateway Auth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .login-box { background: #1e293b; padding: 40px; border-radius: 12px; border: 1px solid #334155; width: 100%; max-width: 400px; }
+        h2 { margin-bottom: 24px; font-weight: 600; text-align: center; }
+        input { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: white; margin-bottom: 16px; }
+        button { width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .alert { background: rgba(239, 68, 68, 0.15); color: #f87171; padding: 10px; border-radius: 6px; font-size: 14px; margin-bottom: 15px; text-align: center; }
+        .back-link { display: block; text-align: center; margin-top: 15px; color: #64748b; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <form method="POST">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}<div class="alert">{{ msg }}</div>{% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST">
+        <input type="text" name="username" placeholder="Owner Username (admin)" required>
+        <input type="password" name="password" placeholder="Secure Password (admin123)" required>
+        <button type="submit">Unlock Core Operations</button>
+    </form>
+    <a href="/" class="back-link">← Return to Member Kiosk</a>
+</div>
+
+</body>
+</html>

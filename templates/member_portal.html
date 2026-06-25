@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseGym Pro // Kiosk Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #3b82f6; --border: #334155; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .kiosk-container { max-width: 480px; width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+        p { color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
+        input { width: 100%; padding: 14px; background: #0f172a; border: 1px solid var(--border); border-radius: 8px; color: white; font-size: 16px; margin-bottom: 20px; text-align: center; }
+        input:focus { outline: none; border-color: var(--accent); }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        button { padding: 14px; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; font-size: 15px; transition: opacity 0.2s; }
+        button.signin { background: #10b981; color: white; }
+        button.signout { background: #64748b; color: white; }
+        button:hover { opacity: 0.9; }
+        .alert { padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; font-weight: 500; }
+        .alert-success { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .alert-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+        .alert-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .admin-route { display: inline-block; margin-top: 30px; color: #64748b; font-size: 12px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+        .admin-route:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="kiosk-container">
+    <h1>PulseGym Kiosk Terminal</h1>
+    <p>Please log your active training session metrics below</p>
+
+    <!-- Feedback Message System -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="alert alert-{{ category }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/member_action" method="POST">
+        <input type="email" name="email" placeholder="Enter Membership Registered Email" required>
+        <div class="btn-grid">
+            <button type="submit" name="action" value="signin" class="signin">▶ Sign In</button>
+            <button type="submit" name="action" value="signout" class="signout">■ Sign Out</button>
+        </div>
+    </form>
+
+    <a href="/login" class="admin-route">🔒 Administrative System Access</a>
+</div>
+
+</body>
+</html>
